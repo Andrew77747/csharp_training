@@ -10,6 +10,7 @@ namespace addressbook_web_tests
     {
         private string firstName;
         private string lastName;
+        private string middleName = "";
 
         public ContactData(string firstName, string lastName)
         {
@@ -27,6 +28,12 @@ namespace addressbook_web_tests
         {
             get { return lastName; }
             set { lastName = value; }
+        }
+
+        public string MiddleName
+        {
+            get { return middleName; }
+            set { middleName = value; }
         }
     }
 }

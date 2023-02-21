@@ -62,7 +62,9 @@ namespace WebAddressbookTests
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
             GoToAddContactPage();
-            FillContactForm(new ContactData("Иван", "Иванов"));
+            ContactData contact = new ContactData("Иван", "Иванов");
+            contact.MiddleName = "Иванович";
+            FillContactForm(contact);
             SubmitContactCreation();
             ReturnToHomePage();
         }
@@ -81,6 +83,8 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
+            driver.FindElement(By.Name("middlename")).Clear();
+            driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
         }
