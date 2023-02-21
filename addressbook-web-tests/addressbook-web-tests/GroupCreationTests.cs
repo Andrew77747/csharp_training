@@ -1,9 +1,11 @@
-﻿using NUnit.Framework;
+﻿using addressbook_web_tests;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System;
 using System.Text;
+using System.Threading;
 
 namespace WebAddressbookTests
 {
@@ -52,6 +54,40 @@ namespace WebAddressbookTests
             SubmitGroupCreation();
             ReturnToGroupsPage();
             Logaut();
+        }
+
+        [Test]
+        public void ContactCreationTest()
+        {
+            OpenHomePage();
+            Login(new AccountData("admin", "secret"));
+            GoToAddContactPage();
+            FillContactForm(new ContactData("Иван", "Иванов"));
+            SubmitContactCreation();
+            ReturnToHomePage();
+        }
+
+        private void ReturnToHomePage()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
+        }
+
+        private void SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("//input[@name='submit'][1]")).Click();
+        }
+
+        private void FillContactForm(ContactData data)
+        {
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
+        }
+
+        private void GoToAddContactPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
         private void Logaut()
