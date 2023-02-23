@@ -1,37 +1,32 @@
-﻿using System;
-using System.Text;
-using addressbook_web_tests;
-using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 
 namespace WebAddressbookTests
 {
-    public class TestBase
+    public class ApplicationManager
     {
         protected IWebDriver driver;
-        private StringBuilder verificationErrors;
         protected string baseURL;
+
         protected LoginHelper loginHelper;
         protected NavigationHelper navigation;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
-        [SetUp]
-        public void SetupTest()
+        public ApplicationManager()
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             baseURL = "http://localhost/addressbook";
-            verificationErrors = new StringBuilder();
+
             loginHelper = new LoginHelper(driver);
             navigation = new NavigationHelper(driver, baseURL);
             groupHelper = new GroupHelper(driver);
             contactHelper = new ContactHelper(driver);
         }
 
-        [TearDown]
-        public void TeardownTest()
+        public void Stop()
         {
             try
             {
@@ -41,7 +36,26 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-            Assert.AreEqual("", verificationErrors.ToString());
+        }
+
+        public LoginHelper Auth
+        {
+            get { return loginHelper; }
+        }
+
+        public NavigationHelper Navigation
+        {
+            get { return navigation; }
+        }
+
+        public GroupHelper Groups
+        {
+            get { return groupHelper; }
+        }
+
+        public ContactHelper Contact
+        {
+            get { return contactHelper; }
         }
     }
 }

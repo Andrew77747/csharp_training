@@ -1,5 +1,4 @@
-﻿using addressbook_web_tests;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
