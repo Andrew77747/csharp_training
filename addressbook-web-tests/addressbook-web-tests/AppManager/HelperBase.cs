@@ -5,11 +5,13 @@ namespace WebAddressbookTests
     public class HelperBase
     {
         protected IWebDriver driver;
+        protected ApplicationManager manager;
         private bool acceptNextAlert = true;
 
-        public HelperBase(IWebDriver driver)
+        public HelperBase(ApplicationManager manager)
         {
-            this.driver = driver;
+            this.manager = manager;
+            driver = manager.Driver;
         }
 
         public bool IsElementPresent(By by)
