@@ -61,5 +61,15 @@ namespace WebAddressbookTests
                 acceptNextAlert = true;
             }
         }
+
+        public void AcceptAlert()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        public void DismissAlert()
+        {
+            driver.SwitchTo().Alert().Dismiss();
+        }
     }
 }
