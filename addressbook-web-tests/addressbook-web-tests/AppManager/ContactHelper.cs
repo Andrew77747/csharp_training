@@ -70,12 +70,10 @@ namespace WebAddressbookTests
 
         public ContactHelper FillContactForm(ContactData data)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
+
+            Type(By.Name("firstname"), data.FirstName);
+            Type(By.Name("middlename"), data.MiddleName);
+            Type(By.Name("lastname"), data.LastName);
 
             return this;
         }
