@@ -45,7 +45,10 @@ namespace WebAddressbookTests
         {
             if (!app.IsValueCreated)
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigation.GoToHomePage();
+                app.Value = newInstance;
+                
             }
             return app.Value;
         }
@@ -54,18 +57,6 @@ namespace WebAddressbookTests
         {
             get { return driver; }
         }
-
-        //public void Stop()
-        //{
-        //    try
-        //    {
-        //        driver.Quit();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        // Ignore errors if unable to close the browser
-        //    }
-        //}
 
         public LoginHelper Auth
         {
