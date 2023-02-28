@@ -21,7 +21,7 @@ namespace WebAddressbookTests
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost/addressbook/";
 
             loginHelper = new LoginHelper(this);
             navigation = new NavigationHelper(this, baseURL);
