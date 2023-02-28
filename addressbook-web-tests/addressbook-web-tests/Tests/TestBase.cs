@@ -6,19 +6,10 @@ namespace WebAddressbookTests
     {
         protected ApplicationManager app;
 
-
         [SetUp]
         public void SetupTest()
         {
-            app = new ApplicationManager();
-            app.Navigation.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-        }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            app.Stop();
+            app = ApplicationManager.GetInstance();
         }
     }
 }
