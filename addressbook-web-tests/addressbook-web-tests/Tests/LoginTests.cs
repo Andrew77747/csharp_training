@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
@@ -21,7 +22,7 @@ namespace WebAddressbookTests
         {
             app.Auth.Logout();
 
-            AccountData account = new AccountData("admin", "1234567");
+            AccountData account = new AccountData("", "1234567");
             app.Auth.Login(account);
 
             Assert.IsFalse(app.Auth.IsLoggedIn(account));
