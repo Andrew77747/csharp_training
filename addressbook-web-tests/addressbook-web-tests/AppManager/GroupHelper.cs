@@ -24,7 +24,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigation.GoToGroupsPage();
-            CreateIfNoGroup();
             SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newData);
@@ -37,7 +36,6 @@ namespace WebAddressbookTests
         public GroupHelper RemoveGroup(int index)
         {
             manager.Navigation.GoToGroupsPage();
-            CreateIfNoGroup();
             SelectGroup(index);
             InitRemoveGroup();
             ReturnToGroupsPage();
@@ -108,9 +106,9 @@ namespace WebAddressbookTests
             return IsElementPresent(By.ClassName("group"));
         }
 
-        public void CreateIfNoGroup()
+        public void CreateIfNoGroup(bool isCreated)
         {
-            if (!IsGroupCreated())
+            if (!isCreated)
             {
                 GroupData group = new GroupData("test1");
                 group.Header = "test2";

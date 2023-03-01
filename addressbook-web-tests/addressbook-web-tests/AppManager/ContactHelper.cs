@@ -23,7 +23,6 @@ namespace WebAddressbookTests
         public ContactHelper Modify(int index, ContactData newData)
         {
             manager.Navigation.GoToHomePage();
-            CreateIfNoContact();
             InitContactModification(index);
             FillContactForm(newData);
             SubmitContactModification();
@@ -35,7 +34,6 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact(int index)
         {   
             manager.Navigation.GoToHomePage();
-            CreateIfNoContact();
             SelectContact(index);
             InitRemoveContact();
             AcceptAlert();
@@ -100,9 +98,9 @@ namespace WebAddressbookTests
             return IsElementPresent(By.Name("entry"));
         }
 
-        public void CreateIfNoContact()
+        public void CreateIfNoContact(bool isCreated)
         {
-            if (!IsContactCreated())
+            if (!isCreated)
             {
                 ContactData contact = new ContactData("Иван", "Иванов");
                 contact.MiddleName = "Иванович";

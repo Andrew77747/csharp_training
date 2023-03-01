@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
@@ -10,6 +9,9 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            app.Navigation.GoToGroupsPage();
+            app.Groups.CreateIfNoGroup(app.Groups.IsGroupCreated());
+
             app.Groups.RemoveGroup(1);
         }
     }
