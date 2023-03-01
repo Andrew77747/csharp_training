@@ -52,6 +52,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
+            index++;
             driver.FindElement(By.XPath($"//table[@id='maintable']//input[{index}]")).Click();
 
             return this;
@@ -83,6 +84,7 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
+            index++;
             driver.FindElement(By.XPath($"//*[@title='Edit'][{index}]")).Click();
 
             return this;

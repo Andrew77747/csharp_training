@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -16,7 +17,7 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
-            ReturnToGroupsPage();
+            //ReturnToGroupsPage(); todo нужен ли этот метод здесь
 
             return this;
         }
@@ -54,6 +55,7 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
+            index++;    
             driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
 
             return this;
@@ -118,6 +120,20 @@ namespace WebAddressbookTests
 
                 Create(group);
             }
+        }
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigation.GoToGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+
+            return groups;
         }
     }
 }
