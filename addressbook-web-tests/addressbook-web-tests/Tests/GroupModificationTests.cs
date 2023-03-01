@@ -9,7 +9,14 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             app.Navigation.GoToGroupsPage();
-            app.Groups.CreateIfNoGroup(app.Groups.IsGroupCreated());
+            if (!app.Groups.IsGroupCreated())
+            {
+                GroupData group = new GroupData("test1");
+                group.Header = "test2";
+                group.Footer = "test3";
+
+                app.Groups.Create(group);
+            }
 
             GroupData newData = new GroupData("newTest1");
             newData.Header = null;
