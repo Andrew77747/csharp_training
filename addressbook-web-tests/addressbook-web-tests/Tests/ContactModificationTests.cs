@@ -7,7 +7,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            app.Contact.CreateIfNoContact(app.Contact.IsContactCreated());
+            app.Contact.CreateIfNoContact(app.Contact.IsContactCreated()); //todo переделать метод
 
             ContactData newContactData = new ContactData("Сергей", "Сергеев");
             newContactData.MiddleName = "Сергеевич";

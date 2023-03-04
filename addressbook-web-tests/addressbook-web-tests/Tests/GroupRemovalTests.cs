@@ -10,7 +10,7 @@ namespace WebAddressbookTests
         public void GroupRemovalTest()
         {
             app.Navigation.GoToGroupsPage();
-            app.Groups.CreateIfNoGroup(app.Groups.IsGroupCreated());
+            app.Groups.CreateIfNoGroup(app.Groups.IsGroupCreated()); //todo переделать метод
 
             app.Groups.RemoveGroup(1);
         }
