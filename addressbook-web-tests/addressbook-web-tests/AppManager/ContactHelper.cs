@@ -93,14 +93,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public bool IsContactCreated()
+        public void CreateIfNoContact()
         {
-            return IsElementPresent(By.Name("entry"));
-        }
-
-        public void CreateIfNoContact(bool isCreated)
-        {
-            if (!isCreated)
+            if (!IsElementPresent(By.Name("entry")))
             {
                 ContactData contact = new ContactData("Иван", "Иванов");
                 contact.MiddleName = "Иванович";

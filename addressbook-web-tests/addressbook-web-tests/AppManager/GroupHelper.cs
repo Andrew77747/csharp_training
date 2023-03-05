@@ -101,14 +101,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public bool IsGroupCreated()
+        public void CreateIfNoGroup()
         {
-            return IsElementPresent(By.ClassName("group"));
-        }
-
-        public void CreateIfNoGroup(bool isCreated)
-        {
-            if (!isCreated)
+            if (!IsElementPresent(By.ClassName("group")))
             {
                 GroupData group = new GroupData("test1");
                 group.Header = "test2";
