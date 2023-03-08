@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -102,6 +103,21 @@ namespace WebAddressbookTests
 
                 Create(contact);
             }
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigation.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text,
+                    element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+            }
+
+            return contacts;
         }
     }
 }
