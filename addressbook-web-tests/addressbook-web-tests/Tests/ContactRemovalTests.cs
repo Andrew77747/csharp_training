@@ -10,7 +10,7 @@ namespace WebAddressbookTests
         {
             app.Contact.CreateIfNoContact();
 
-            app.Contact.RemoveContact(1);
+            app.Contact.RemoveContact(0);
         }
     }
 }
