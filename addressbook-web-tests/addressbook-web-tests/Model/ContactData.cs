@@ -35,14 +35,15 @@ namespace WebAddressbookTests
             return LastName.GetHashCode();
         }
 
-        public int CompareTo(ContactData other) 
+        public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
 
-            return LastName.CompareTo(other.LastName);
+            int resultCompare = LastName.CompareTo(other.LastName);
+            return resultCompare != 0 ? resultCompare : FirstName.CompareTo(other.FirstName);
         }
 
         public string FirstName
