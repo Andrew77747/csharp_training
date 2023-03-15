@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -44,8 +45,8 @@ namespace WebAddressbookTests
 
         public ContactHelper InitRemoveContact()
         {
-            driver.FindElement(By.XPath($"//input[@value='Delete']")).Click();
-
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -66,7 +67,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("//input[@name='submit'][1]")).Click();
-
+            contactCache = null;
             return this;
         }
 
@@ -90,7 +91,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("//input[@name='update'][1]")).Click();
-
+            contactCache = null;
             return this;
         }
 
@@ -105,19 +106,23 @@ namespace WebAddressbookTests
             }
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigation.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                contacts.Add(new ContactData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text,
-                    element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                contactCache = new List<ContactData>();
+                manager.Navigation.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    contactCache.Add(new ContactData(element.FindElement(By.CssSelector("td:nth-child(3)")).Text,
+                        element.FindElement(By.CssSelector("td:nth-child(2)")).Text));
+                }
             }
 
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
     }
 }
