@@ -83,6 +83,9 @@ namespace WebAddressbookTests
             Type(By.Name("home"), data.HomePhone);
             Type(By.Name("mobile"), data.MobilePhone);
             Type(By.Name("work"), data.WorkPhone);
+            Type(By.Name("email"), data.Email);
+            Type(By.Name("email2"), data.Email2);
+            Type(By.Name("email3"), data.Email3);
 
             return this;
         }
@@ -115,6 +118,9 @@ namespace WebAddressbookTests
                 contact.HomePhone = "+7812-255-555-55";
                 contact.MobilePhone = "+7 (921) 333 33 33";
                 contact.WorkPhone = "8 800 500 50 50";
+                contact.Email = "test@mail.ru";
+                contact.Email2 = "test2@mail.ru";
+                contact.Email3 = "test3@mail.ru";
 
                 Create(contact);
             }
@@ -147,12 +153,14 @@ namespace WebAddressbookTests
             string lastName = cells[1].Text;
             string firstName = cells[2].Text;
             string address = cells[3].Text;
+            string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
 
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhones = allPhones
+                AllPhones = allPhones,
+                AllEmails = allEmails
             };
         }
 
@@ -168,12 +176,19 @@ namespace WebAddressbookTests
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
 
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workPhone
+                WorkPhone = workPhone,
+                Email = email,
+                Email2 = email2,
+                Email3 = email3
             };
         }
 
