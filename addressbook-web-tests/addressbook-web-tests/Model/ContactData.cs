@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -80,8 +81,7 @@ namespace WebAddressbookTests
                 return "";
             }
 
-            return phone.Replace(" ", "").Replace("-", "")
-                .Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
     }
 }
