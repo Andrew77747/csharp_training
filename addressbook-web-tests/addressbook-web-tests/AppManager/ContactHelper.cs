@@ -76,10 +76,13 @@ namespace WebAddressbookTests
 
         public ContactHelper FillContactForm(ContactData data)
         {
-
             Type(By.Name("firstname"), data.FirstName);
             Type(By.Name("middlename"), data.MiddleName);
             Type(By.Name("lastname"), data.LastName);
+            Type(By.Name("address"), data.Address);
+            Type(By.Name("home"), data.HomePhone);
+            Type(By.Name("mobile"), data.MobilePhone);
+            Type(By.Name("work"), data.WorkPhone);
 
             return this;
         }
@@ -108,6 +111,10 @@ namespace WebAddressbookTests
             {
                 ContactData contact = new ContactData("Иван", "Иванов");
                 contact.MiddleName = "Иванович";
+                contact.Address = "ул. Мира 5";
+                contact.HomePhone = "+7812-255-555-55";
+                contact.MobilePhone = "+7 (921) 333 33 33";
+                contact.WorkPhone = "8 800 500 50 50";
 
                 Create(contact);
             }
