@@ -101,6 +101,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper ShowContactProperties(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+
+            return this;
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("//input[@name='update'][1]")).Click();
@@ -164,11 +173,25 @@ namespace WebAddressbookTests
             };
         }
 
+        public ContactData GetContactInformationFromPropertiesPage(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            ShowContactProperties(index);
+
+            string allProperties = driver.FindElement(By.Id("content")).Text;
+
+            return new ContactData
+            {
+                AllProperties = allProperties
+            };
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigation.GoToHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
@@ -182,6 +205,7 @@ namespace WebAddressbookTests
 
             return new ContactData(firstName, lastName)
             {
+                MiddleName = middleName,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,

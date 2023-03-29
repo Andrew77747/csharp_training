@@ -7,6 +7,11 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string allProperties;
+
+        public ContactData()
+        {
+        }
 
         public ContactData(string firstName, string lastName)
         {
@@ -94,6 +99,28 @@ namespace WebAddressbookTests
             set
             {
                 allEmails = value;
+            }
+        }
+
+        public string AllProperties
+        {
+            get
+            {
+                if (allProperties != null)
+                {
+                    return allProperties;
+                }
+                else
+                {
+                    return (FirstName + " " + MiddleName + " " + LastName + "\r\n" + Address + "\r\n\r\nH: "
+                            + HomePhone + "\r\nM: " + MobilePhone + "\r\nW: " + WorkPhone + "\r\n\r\n"
+                            + Email + "\r\n" + Email2 + "\r\n" + Email3).Trim();
+                }
+            }
+
+            set
+            {
+                allProperties = value;
             }
         }
 
