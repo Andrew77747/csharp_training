@@ -8,6 +8,7 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmails;
         private string allProperties;
+        private string allPhonesFromDetailsPage;
 
         public ContactData()
         {
@@ -102,6 +103,31 @@ namespace WebAddressbookTests
             }
         }
 
+        public string AllPhonesFromDetailsPage
+        {
+            get
+            {
+                if (allPhonesFromDetailsPage != null)
+                {
+                    return allPhonesFromDetailsPage;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(HomePhone)
+                        && string.IsNullOrEmpty(MobilePhone)
+                        && string.IsNullOrEmpty(WorkPhone))
+                    {
+                        return "";
+                    }
+                    return (SetHomePhone(HomePhone) + SetMobilePhone(MobilePhone) + SetWorkPhone(WorkPhone)) + "\r\n";
+                }
+            }
+            set
+            {
+                allPhonesFromDetailsPage = value;
+            }
+        }
+
         public string AllProperties
         {
             get
@@ -112,16 +138,66 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (FirstName + " " + MiddleName + " " + LastName + "\r\n" + Address + "\r\n\r\nH: "
-                            + HomePhone + "\r\nM: " + MobilePhone + "\r\nW: " + WorkPhone + "\r\n\r\n"
-                            + Email + "\r\n" + Email2 + "\r\n" + Email3).Trim();
+                    return ((SetName(FirstName) + SetName(MiddleName) + SetName(LastName)).Trim() + "\r\n"
+                            + SetProperty(Address) + "\r\n"
+                            + AllPhonesFromDetailsPage
+                            + SetProperty(Email) + SetProperty(Email2) + SetProperty(Email3)).Trim();
                 }
             }
-
             set
             {
                 allProperties = value;
             }
+        }
+
+        private string SetHomePhone(string homePhone)
+        {
+            if (string.IsNullOrEmpty(homePhone))
+            {
+                return "";
+            }
+
+            return "H: " + homePhone + "\r\n";
+        }
+
+        private string SetMobilePhone(string mobilePhone)
+        {
+            if (string.IsNullOrEmpty(mobilePhone))
+            {
+                return "";
+            }
+
+            return "M: " + mobilePhone + "\r\n";
+        }
+
+        private string SetWorkPhone(string workPhone)
+        {
+            if (string.IsNullOrEmpty(workPhone))
+            {
+                return "";
+            }
+
+            return "W: " + workPhone + "\r\n";
+        }
+
+        private string SetProperty(string property)
+        {
+            if (string.IsNullOrEmpty(property))
+            {
+                return "";
+            }
+
+            return property + "\r\n";
+        }
+
+        private string SetName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return "";
+            }
+
+            return name + " ";
         }
 
         private string CleanUp(string phone)
