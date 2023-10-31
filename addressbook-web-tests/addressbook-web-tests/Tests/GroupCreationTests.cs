@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using NUnit.Framework;
+using System.Xml.Serialization;
 
 namespace WebAddressbookTests
 {
@@ -22,7 +24,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
             string[] lines = File.ReadAllLines(@"groups.csv");
@@ -34,12 +36,17 @@ namespace WebAddressbookTests
                     Header = parts[1],
                     Footer = parts[2]
                 });
-
             }
             return groups;
         }
 
-        [Test, TestCaseSource(nameof(GroupDataFromFile))]
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List<GroupData>) 
+                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
+        }
+
+        [Test, TestCaseSource(nameof(GroupDataFromXmlFile))]
         public void GroupCreationTest(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
