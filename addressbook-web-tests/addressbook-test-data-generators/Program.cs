@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Remoting.Messaging;
@@ -31,6 +32,10 @@ namespace addressbook_test_data_generators
             {
                 WriteGroupsToXmlFile(groups, writer);
             }
+            else if (format == "json")
+            {
+                WriteGroupsToJsonFile(groups, writer);
+            }
             else
             {
                 Console.WriteLine("Unrecognized format " + format);
@@ -51,6 +56,11 @@ namespace addressbook_test_data_generators
         static void WriteGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
+        }
+
+        static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
         }
     }
 }
