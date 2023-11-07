@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <FirstName>H7</FirstName>
+    <LastName>O</LastName>
+    <AllPhones />
+    <AllEmails />
+    <AllPhonesFromDetailsPage />
+    <AllProperties>H7 O</AllProperties>
+  </ContactData>
+  <ContactData>
+    <FirstName>0?</FirstName>
+    <LastName>`P1_</LastName>
+    <AllPhones />
+    <AllEmails />
+    <AllPhonesFromDetailsPage />
+    <AllProperties>0? `P1_</AllProperties>
+  </ContactData>
+</ArrayOfContactData>
