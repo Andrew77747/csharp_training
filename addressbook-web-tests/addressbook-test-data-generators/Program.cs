@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Excel = Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Remoting.Messaging;
 using System.Xml.Serialization;
 using WebAddressbookTests;
 
@@ -13,7 +13,7 @@ namespace addressbook_test_data_generators
         static void Main(string[] args)
         {
             int count = Convert.ToInt32(args[0]);
-            StreamWriter writer = new StreamWriter(args[1]);
+            string filename = args[1];
             string format = args[2];
 
             List<GroupData> groups = new List<GroupData>();
@@ -24,24 +24,58 @@ namespace addressbook_test_data_generators
                     Footer= TestBase.GenerateRandomString(10)
                 });
             }
-            if (format == "csv")
+
+            if (format == "excel")
             {
-                WriteGroupdToCsvFile(groups, writer);
-            }
-            else if (format == "xml")
-            {
-                WriteGroupsToXmlFile(groups, writer);
-            }
-            else if (format == "json")
-            {
-                WriteGroupsToJsonFile(groups, writer);
+                WriteGroupdToExcelFile(groups, filename);
             }
             else
             {
-                Console.WriteLine("Unrecognized format " + format);
+                StreamWriter writer = new StreamWriter(filename);
+
+                if (format == "csv")
+                {
+                    WriteGroupdToCsvFile(groups, writer);
+                }
+                else if (format == "xml")
+                {
+                    WriteGroupsToXmlFile(groups, writer);
+                }
+                else if (format == "json")
+                {
+                    WriteGroupsToJsonFile(groups, writer);
+                }
+                else
+                {
+                    Console.WriteLine("Unrecognized format " + format);
+                }
+
+                writer.Close();
             }
-            
-            writer.Close();
+        }
+
+        static void WriteGroupdToExcelFile(List<GroupData> groups, string filename)
+        {
+            Excel.Application app = new Excel.Application();
+            app.Visible = true;
+            Excel.Workbook wb = app.Workbooks.Add();
+            Excel.Worksheet sheet = wb.ActiveSheet;
+
+            int row = 1;
+            foreach (GroupData group in groups)
+            {
+                sheet.Cells[row, 1] = group.Name;
+                sheet.Cells[row, 2] = group.Header;
+                sheet.Cells[row, 3] = group.Footer;
+                row++;
+            }
+            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), filename);
+            File.Delete(fullPath);
+            wb.SaveAs(fullPath);
+
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
         }
 
         static void WriteGroupdToCsvFile(List<GroupData> groups, StreamWriter writer)
