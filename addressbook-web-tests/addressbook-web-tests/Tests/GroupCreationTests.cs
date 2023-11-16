@@ -128,5 +128,18 @@ namespace WebAddressbookTests
             end = DateTime.Now;
             Console.WriteLine(end.Subtract(start));
         }
+
+        [Test]
+        public void TestDBConnectivity2()
+        {
+            var p = GroupData.GetAll();
+            var x1 = GroupData.GetAll()[0].GetContacts();
+            var x2 = GroupData.GetAll()[1].GetContacts();
+            var x3 = GroupData.GetAll()[2].GetContacts();
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.WriteLine(contact);
+            }          
+        }
     }
 }

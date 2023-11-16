@@ -1,8 +1,11 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using Microsoft.Office.Interop.Excel;
+using System;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -52,8 +55,11 @@ namespace WebAddressbookTests
             return resultCompare != 0 ? resultCompare : FirstName.CompareTo(other.FirstName);
         }
 
+        [Column(Name = "id"), PrimaryKey]
+        public string Id { get; set; }
+        [Column(Name = "firstname")]
         public string FirstName { get; set; }
-
+        [Column(Name = "lastname")]
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
