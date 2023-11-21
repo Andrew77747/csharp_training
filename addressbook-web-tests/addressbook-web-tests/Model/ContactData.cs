@@ -1,6 +1,8 @@
 ﻿using LinqToDB.Mapping;
 using Microsoft.Office.Interop.Excel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -70,6 +72,9 @@ namespace WebAddressbookTests
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
         public string AllPhones
         {
@@ -214,6 +219,14 @@ namespace WebAddressbookTests
             }
 
             return Regex.Replace(phone, "[ \\-()]", "") + "\r\n";
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
         }
     }
 }
