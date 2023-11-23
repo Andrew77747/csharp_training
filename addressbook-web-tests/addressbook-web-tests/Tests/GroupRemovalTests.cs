@@ -6,7 +6,6 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupRemovalTests : GroupTestBase
     {
-
         [Test]
         public void GroupRemovalTest()
         {

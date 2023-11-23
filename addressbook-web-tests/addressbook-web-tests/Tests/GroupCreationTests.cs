@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Xml;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
-using Excel = Microsoft.Office.Interop.Excel;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -102,13 +101,13 @@ namespace WebAddressbookTests
             group.Header = "";
             group.Footer = "";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();

@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Contact.CreateIfNoContact();
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
 
-            app.Contact.RemoveContact(0);
+            app.Contact.RemoveContact(toBeRemoved);
 
-            List<ContactData> newContacts = app.Contact.GetContactList();
-            
+            List<ContactData> newContacts = ContactData.GetAll();
+
             oldContacts.RemoveAt(0);
 
             Assert.AreEqual(oldContacts, newContacts);
