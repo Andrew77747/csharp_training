@@ -9,6 +9,9 @@ namespace WebAddressbookTests
         [Test]
         public void TestRemovingContactFromGroup()
         {
+            app.Contact.CreateContactIfNotExist();
+            app.Groups.CreateGroupIfNotExist();
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> listContactsInGroup = group.GetContacts();
 

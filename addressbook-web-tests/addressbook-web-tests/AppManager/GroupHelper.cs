@@ -148,6 +148,19 @@ namespace WebAddressbookTests
             }
         }
 
+        public void CreateGroupIfNotExist()
+        {
+            List<GroupData> groups = GroupData.GetAll();
+            if (groups.Count == 0)
+            {
+                GroupData group = new GroupData("test1");
+                group.Header = "test2";
+                group.Footer = "test3";
+
+                Create(group);
+            }
+        }
+
         private List<GroupData> groupCache = null;
 
         public List<GroupData> GetGroupList()

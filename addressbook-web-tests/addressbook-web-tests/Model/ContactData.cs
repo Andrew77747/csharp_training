@@ -228,5 +228,14 @@ namespace WebAddressbookTests
                 return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
+
+        public static string MaxContactId()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts
+                        .Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).Max(x => x.Id);
+            }
+        }
     }
 }

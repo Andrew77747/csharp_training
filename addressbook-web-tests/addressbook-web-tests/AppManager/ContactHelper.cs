@@ -174,6 +174,25 @@ namespace WebAddressbookTests
             }
         }
 
+        public void CreateContactIfNotExist()
+        {
+            List<ContactData> contacts = ContactData.GetAll();
+            if (contacts.Count == 0)
+            {
+                ContactData contact = new ContactData("Иван", "Иванов");
+                contact.MiddleName = "Иванович";
+                contact.Address = "ул. Мира 5";
+                contact.HomePhone = "+7812-255-555-55";
+                contact.MobilePhone = "+7 (921) 333 33 33";
+                contact.WorkPhone = "8 800 500 50 50";
+                contact.Email = "test@mail.ru";
+                contact.Email2 = "test2@mail.ru";
+                contact.Email3 = "test3@mail.ru";
+
+                Create(contact);
+            }
+        }
+
         private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()

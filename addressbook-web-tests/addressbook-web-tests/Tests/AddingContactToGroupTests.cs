@@ -9,9 +9,23 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
+            app.Contact.CreateContactIfNotExist();
+            app.Groups.CreateGroupIfNotExist();
+            ContactData contact;
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            List<ContactData> contacts = ContactData.GetAll();
+
+            if (oldList.Count == contacts.Count) 
+            {
+                app.Contact.Create(new ContactData("Иван", "Иванов"));
+                contact = ContactData.GetAll().FirstOrDefault(i => i.Id == ContactData.MaxContactId());
+            }
+            else
+            {
+                contact = ContactData.GetAll().Except(oldList).First();
+            }
 
             app.Contact.AddContactToGroup(contact, group);
 
