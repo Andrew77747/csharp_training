@@ -68,7 +68,9 @@
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="AppManager\FtpHelper.cs" />
     <Compile Include="AppManager\HelperBase.cs" />
+    <Compile Include="AppManager\JamesHelper.cs" />
     <Compile Include="AppManager\RegistrationHelper.cs" />
+    <Compile Include="AppManager\TelnetInterface.cs" />
     <Compile Include="Models\AccountData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AccountCreationTests.cs" />
