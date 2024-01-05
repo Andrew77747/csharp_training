@@ -14,6 +14,8 @@ namespace mantis_tests
         public FtpHelper Ftp { get; set; }
         public JamesHelper James { get; set; }
         public LoginHelper Auth { get; set; }
+        public ManagementMenuHelper Navigation { get; set; }
+        public ProjectManagementHelper Project { get; set; }
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -21,11 +23,14 @@ namespace mantis_tests
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
-            baseURL = "http://localhost";
+            baseURL = "http://localhost/mantisbt-1.3.20";
+
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             James = new JamesHelper(this);
             Auth = new LoginHelper(this);
+            Navigation = new ManagementMenuHelper(this, baseURL);
+            Project = new ProjectManagementHelper(this);
         }
 
         ~ApplicationManager()
@@ -47,7 +52,6 @@ namespace mantis_tests
                 ApplicationManager newInstance = new ApplicationManager();
                 newInstance.driver.Url = "http://localhost/mantisbt-1.3.20/login_page.php";
                 app.Value = newInstance;
-                
             }
             return app.Value;
         }
