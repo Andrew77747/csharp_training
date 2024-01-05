@@ -1,9 +1,7 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mantis_tests
 {
@@ -34,6 +32,16 @@ namespace mantis_tests
             ConfirmProjectCreation();
         }
 
+        public void RemoveProject(ProjectData project)
+        {
+            manager.Navigation.GoToAddProjectPage();
+            driver.FindElement(By.LinkText(project.Name)).Click();
+            Remove();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(5))
+                .Until(d => d.FindElements(By.ClassName("confirm-msg")).Count > 0);
+            Remove();
+        }
+
         public void InitProjectCreation()
         {
             driver.FindElement(By.XPath("//input[@value='создать новый проект']")).Click();
@@ -42,6 +50,25 @@ namespace mantis_tests
         public void ConfirmProjectCreation()
         {
             driver.FindElement(By.XPath("//input[@value='Добавить проект']")).Click();
+        }
+
+        public void Remove()
+        {
+            driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
+        }
+
+        public void CreateIfNoProjects()
+        {
+            List<ProjectData> projects = new List<ProjectData>();
+            manager.Navigation.GoToAddProjectPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//*[text()='Проекты']//..//tbody//td/a"));
+
+            if (elements.Count == 0)
+            {
+                ProjectData newProject = new ProjectData("Project" + TestBase.GenerateRandomString(10));
+
+                Create(newProject);
+            }
         }
     }
 }
