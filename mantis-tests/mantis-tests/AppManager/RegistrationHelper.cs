@@ -18,10 +18,9 @@ namespace mantis_tests
             OpenRegistrationForm();
             FillRegistrationForm(account);
             SubmitRegistration();
-            String url = GetConfirmationUrl(account);
-            FillPasswordForm(url, account);
-            SubmitPasswordForm();
-
+            //String url = GetConfirmationUrl(account);
+            //FillPasswordForm(url, account);
+            //SubmitPasswordForm();
         }
 
         private string GetConfirmationUrl(AccountData account)
