@@ -13,6 +13,9 @@ namespace mantis_tests
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
         public JamesHelper James { get; set; }
+        public LoginHelper Auth { get; set; }
+        public ManagementMenuHelper Navigation { get; set; }
+        public ProjectManagementHelper Project { get; set; }
         public MailHelper Mail { get; set; }
         public AdminHelper Admin { get; set; }
         public APIHelper API { get; set; }
@@ -27,6 +30,9 @@ namespace mantis_tests
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             James = new JamesHelper(this);
+            Auth = new LoginHelper(this);
+            Navigation = new ManagementMenuHelper(this, baseURL);
+            Project = new ProjectManagementHelper(this);
             Mail = new MailHelper(this);
             Admin = new AdminHelper(this, baseURL);
             API = new APIHelper(this);
@@ -51,7 +57,6 @@ namespace mantis_tests
                 ApplicationManager newInstance = new ApplicationManager();
                 newInstance.driver.Url = newInstance.baseURL + "/login_page.php";
                 app.Value = newInstance;
-                
             }
             return app.Value;
         }

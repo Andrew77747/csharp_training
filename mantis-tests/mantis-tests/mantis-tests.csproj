@@ -97,6 +97,9 @@
     <Compile Include="AppManager\HelperBase.cs" />
     <Compile Include="AppManager\JamesHelper.cs" />
     <Compile Include="AppManager\MailHelper.cs" />
+    <Compile Include="AppManager\LoginHelper.cs" />
+    <Compile Include="AppManager\ManagementMenuHelper.cs" />
+    <Compile Include="AppManager\ProjectManagementHelper.cs" />
     <Compile Include="AppManager\RegistrationHelper.cs" />
     <Compile Include="AppManager\TelnetInterface.cs" />
     <Compile Include="Connected Services\Mantis\Reference.cs">
@@ -110,6 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\AccountCreationTests.cs" />
     <Compile Include="Tests\AddNewIssue.cs" />
+    <Compile Include="Tests\AuthTestBase.cs" />
+    <Compile Include="Tests\ProjectCreationTests.cs" />
+    <Compile Include="Tests\ProjectRemovalTests.cs" />
     <Compile Include="Tests\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
