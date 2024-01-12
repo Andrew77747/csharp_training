@@ -34,11 +34,13 @@ namespace mantis_tests
 
         public void RemoveProject(ProjectData project)
         {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+
             manager.Navigation.GoToAddProjectPage();
+            wait.Until(d => d.FindElements(By.LinkText(project.Name)).Count > 0);
             driver.FindElement(By.LinkText(project.Name)).Click();
             Remove();
-            new WebDriverWait(driver, TimeSpan.FromSeconds(5))
-                .Until(d => d.FindElements(By.ClassName("confirm-msg")).Count > 0);
+            wait.Until(d => d.FindElements(By.ClassName("confirm-msg")).Count > 0);
             Remove();
         }
 
